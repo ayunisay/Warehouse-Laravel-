@@ -14,6 +14,10 @@ class StokController extends Controller
         return view('user.lihat-stok');
     }
 
+    public function index2(){
+        return view('admin.kelola-stok');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

@@ -30,7 +30,7 @@
                         <a href="{{ route('barangkeluar') }}" class="hover:text-yellow-400 transition duration-300">Barang Keluar</a>
                     </li>
                     <li>
-                        <a href="#" class="hover:text-yellow-400 transition duration-300">Laporan Kerusakan</a>
+                        <a href="{{ route('laporankerusakan') }}" class="hover:text-yellow-400 transition duration-300">Laporan Kerusakan</a>
                     </li>
                 </ul>
 

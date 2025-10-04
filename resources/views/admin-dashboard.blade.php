@@ -1,4 +1,4 @@
-@include('admin-layout.header')
+@include('admin.admin-layout.header')
 
     <div class="container mx-auto mt-8 flex-grow">
         <h1 class="text-3xl font-bold text-gray-700 mb-6">Admin Dashboard</h1>
@@ -175,4 +175,4 @@
         </div>
     </div>
 
-@include('admin-layout  .footer')
+@include('admin.admin-layout.footer')

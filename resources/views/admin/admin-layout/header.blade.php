@@ -32,22 +32,22 @@
                 <div class="flex items-center space-x-11">
                     <ul class="flex space-x-6 text-sm font-medium">
                         <li>
-                            <a href="#" class="hover:text-yellow-400 transition duration-300">Dashboard</a>
+                            <a href="{{ route('dashboardadmin') }}" class="hover:text-yellow-400 transition duration-300">Dashboard</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-yellow-400 transition duration-300">Stok</a>
+                            <a href="{{ route('kelolastok') }}" class="hover:text-yellow-400 transition duration-300">Stok</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-yellow-400 transition duration-300">Supplier</a>
+                            <a href="{{ route('kelolasupplier') }}" class="hover:text-yellow-400 transition duration-300">Supplier</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-yellow-400 transition duration-300">User</a>
+                            <a href="{{ route('kelolauser') }}" class="hover:text-yellow-400 transition duration-300">User</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-yellow-400 transition duration-300">Riwayat Keluar</a>
+                            <a href="{{ route('riwayatkeluar') }}" class="hover:text-yellow-400 transition duration-300">Riwayat Keluar</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-yellow-400 transition duration-300">Permintaan Barang</a>
+                            <a href="{{ route('kelolapermintaan') }}" class="hover:text-yellow-400 transition duration-300">Permintaan Barang</a>
                         </li>
                     </ul>
 

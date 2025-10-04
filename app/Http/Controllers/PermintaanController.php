@@ -10,4 +10,8 @@ class PermintaanController extends Controller
     {
         return view('user.permintaan-barang');
     }
+    public function index2()
+    {
+        return view('admin.kelola-permintaan');
+    }
 }
