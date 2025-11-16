@@ -18,24 +18,24 @@
             <div class="flex items-center space-x-11">
                 <ul class="flex space-x-6 text-sm font-medium">
                     <li>
-                        <a href="{{ route('dashboarduser') }}" class="hover:text-yellow-400 transition duration-300">Dashboard</a>
+                        <a href="{{ route('dashboardUser') }}" class="hover:text-yellow-400 transition duration-300">Dashboard</a>
                     </li>
                     <li>
-                        <a href="{{ route('stok') }}" class="hover:text-yellow-400 transition duration-300">Daftar Stok</a>
+                        <a href="{{ route('lihatStok') }}" class="hover:text-yellow-400 transition duration-300">Daftar Stok</a>
                     </li>
                     <li>
-                        <a href="{{ route('permintaan') }}" class="hover:text-yellow-400 transition duration-300">Permintaan Barang</a>
+                        <a href="{{ route('permintaanBarang') }}" class="hover:text-yellow-400 transition duration-300">Permintaan Barang</a>
                     </li>
                     <li>
-                        <a href="{{ route('barangkeluar') }}" class="hover:text-yellow-400 transition duration-300">Barang Keluar</a>
+                        <a href="{{ route('barangKeluar') }}" class="hover:text-yellow-400 transition duration-300">Barang Keluar</a>
                     </li>
                     <li>
-                        <a href="{{ route('laporankerusakan') }}" class="hover:text-yellow-400 transition duration-300">Laporan Kerusakan</a>
+                        <a href="{{ route('laporanKerusakan') }}" class="hover:text-yellow-400 transition duration-300">Laporan Kerusakan</a>
                     </li>
                 </ul>
 
                 <!-- Logout Button -->
-                <a href="#" class="flex items-center bg-red-500 px-3 py-2 rounded hover:bg-red-600 transition duration-300">
+                <a href="{{ route('logout') }}" class="flex items-center bg-red-500 px-3 py-2 rounded hover:bg-red-600 transition duration-300">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H3" />
                     </svg>

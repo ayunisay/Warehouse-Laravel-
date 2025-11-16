@@ -9,43 +9,41 @@
                 <table class="min-w-full bg-white border border-gray-300 rounded-lg">
                     <thead class="bg-gray-100">
                         <tr>
-                            <th class="py-3 px-6 border-b text-left text-gray-600 font-medium">Nama Barang</th>
+                            <th class="py-3 px-4 border-b text-left text-gray-600 font-medium">Nama Barang</th>
                             <th class="py-3 px-4 border-b text-left text-gray-600 font-medium">Jumlah</th>
                             <th class="py-3 px-4 border-b text-left text-gray-600 font-medium">Alasan</th>
                             <th class="py-3 px-4 border-b text-left text-gray-600 font-medium">Pengguna</th>
                             <th class="py-3 px-4 border-b text-left text-gray-600 font-medium">Tanggal</th>
-                            <th class="py-3 px-6 border-b text-center text-gray-600 font-medium w-40">Aksi</th>
+                            <th class="py-3 px-4 border-b text-center text-gray-600 font-medium w-40">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
+                        @if (empty($permintaanPending) || $permintaanPending->isEmpty())
+                            <tr>
+                                <td colspan="8" class="py-3 px-4 text-center text-gray-500">Belum ada permintaan yang diajukan</td>
+                            </tr>
+                        @else
+                            @foreach ($permintaanPending as $permintaans)
                         <tr class='hover:bg-gray-50'>
-                            <td class='py-3 px-6 border-b'>nama_barang</td>
-                            <td class='py-3 px-4 border-b text-center'>jumlah</td>
-                            <td class='py-3 px-4 border-b'>alasan</td>
-                            <td class='py-3 px-4 border-b'>nama_pengaju</td>
-                            <td class='py-3 px-4 border-b'>tanggal</td>
-                            <td class='py-3 px-6 border-b text-center w-40'>
-                                <div class='flex items-center justify-center space-x-4'>
-                                    <a href='#' class='text-green-500 hover:underline flex items-center'>
-                                        <svg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5 mr-1' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-                                            <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 13l4 4L19 7'/>
-                                        </svg>
-                                        Approve
-                                    </a>
-                                    <a href='#' class='text-red-500 hover:underline flex items-center'>
-                                        <svg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5 mr-1' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-                                            <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 18L18 6M6 6l12 12' />
-                                        </svg>
-                                        Reject
-                                    </a>
-                                </div>
+                            <td class='py-3 px-4'>{{ $permintaans->nama_barang }}</td>
+                            <td class='py-3 px-4'>{{ $permintaans->jumlah }}</td>
+                            <td class='py-3 px-4'>{{ $permintaans->alasan ?? '-' }}</td>
+                            <td class='py-3 px-4'>{{ $permintaans->nama_pengaju }}</td>
+                            <td class='py-3 px-4'>{{ $permintaans->created_at ? $permintaans->created_at->format('d/m/Y') : ($permintaans->tanggal ?? '-') }}</td>
+                            <td class='py-3 px-2'>
+                                <form action="{{ route('approvePermintaan', ['id'=>$permintaans->id]) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    <button type="submit" class="text-green-500 hover:underline bg-none border-none cursor-pointer">Approved</button>
+                                </form>
+                                |
+                                <form action="{{ route('rejectPermintaan', ['id'=>$permintaans->id]) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    <button type="submit" class="text-red-500 hover:underline bg-none border-none cursor-pointer">Rejected</button>
+                                </form>
                             </td>
                         </tr>
-                        <tr>
-                            <td colspan='6' class='py-3 px-4 border-b text-center text-gray-500'>
-                                Belum ada permintaan barang.
-                            </td>
-                        </tr>
+                        @endforeach
+                    @endif
                     </tbody>
                 </table>
             </div>
@@ -68,22 +66,37 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
+                        @if (empty($permintaan) || $permintaan->isEmpty())
+                            <tr>
+                                <td colspan="8" class="py-3 px-4 text-center text-gray-500">Belum ada permintaan yang diajukan</td>
+                            </tr>
+                        @else
+                            @foreach ($permintaan as $permintaans)
                         <tr class='hover:bg-gray-50'>
-                            <td class='py-3 px-4'>no</td>
-                            <td class='py-3 px-4'>nama_pengaju</td>
-                            <td class='py-3 px-4'>nama_barang</td>
-                            <td class='py-3 px-4'>jumlah</td>
+                            <td class='py-3 px-4'>{{ $loop->iteration }}</td>
+                            <td class='py-3 px-4'>{{ $permintaans->nama_pengaju }}</td>
+                            <td class='py-3 px-4'>{{ $permintaans->nama_barang }}</td>
+                            <td class='py-3 px-4'>{{ $permintaans->jumlah }}</td>
                             <td class='py-3 px-4'>
-                                Status
-                            </td>
-                            <td class='py-3 px-4'>tanggal</td>
+                                <span class="inline-block px-3 py-1 rounded-full text-sm font-medium
+                                    @if($permintaans->status == 'Pending') bg-yellow-100 text-yellow-800
+                                    @elseif($permintaans->status == 'Approved') bg-green-100 text-green-800
+                                    @else bg-red-100 text-red-800
+                                    @endif">
+                                    {{ $permintaans->status }}
+                                </span>
+                                </td>
+                            <td class='py-3 px-4'>{{ $permintaans->created_at ? $permintaans->created_at->format('d/m/Y') : ($permintaans->tanggal ?? '-') }}</td>
                             <td class='py-3 px-4'>
-                                <a href='#' onclick=\"return confirm('Yakin ingin menghapus?')\" class='text-red-500 hover:underline'>Hapus</a>
+                                <form action="{{ route('hapusPermintaan', ['id'=>$permintaans->id]) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus permintaan ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-500 hover:underline bg-none border-none cursor-pointer">Hapus</button>
+                                </form>
                             </td>
                         </tr>
-                        <tr>
-                            <td colspan='7' class='py-3 px-4 text-center text-gray-500'>Belum ada data permintaan barang.</td>
-                        </tr>
+                        @endforeach
+                    @endif
                     </tbody>
                 </table>
             </div>
