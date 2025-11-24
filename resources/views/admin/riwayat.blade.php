@@ -35,7 +35,7 @@
                                 <td class='py-3 px-4'>{{ \Carbon\Carbon::parse($item->tanggal_keluar)->format('d/m/Y') }}</td>
                                 <td class='py-3 px-4'>{{ \Illuminate\Support\Str::limit($item->keterangan, 30) }}</td>
                                 <td class='py-3 px-4'>
-                                    <form action="{{ route('hapusBarangKeluar', ['id'=>$item->id]) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                    <form action="{{ route('hapusBarangKeluar2', ['id'=>$item->id]) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                     @csrf
                                     @method('DELETE')
                                         <button type="submit" class="text-red-500 hover:underline bg-none border-none cursor-pointer">Hapus</button>

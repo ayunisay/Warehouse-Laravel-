@@ -88,7 +88,7 @@
                                 </td>
                             <td class='py-3 px-4'>{{ $permintaans->created_at ? $permintaans->created_at->format('d/m/Y') : ($permintaans->tanggal ?? '-') }}</td>
                             <td class='py-3 px-4'>
-                                <form action="{{ route('hapusPermintaan', ['id'=>$permintaans->id]) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus permintaan ini?')">
+                                <form action="{{ route('hapusPermintaanAdmin', ['id'=>$permintaans->id]) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus permintaan ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-500 hover:underline bg-none border-none cursor-pointer">Hapus</button>

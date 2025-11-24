@@ -87,8 +87,8 @@
                         @else
                             @foreach($recentActivities as $log)
                                 <tr class='hover:bg-gray-50'>
-                                    <td class='py-3 px-6 border-b'>{{ \Carbon\Carbon::parse($log->created_at)->format('d/m/Y') }}</td>
-                                    <td class='py-3 px-6 border-b'>{{ \Carbon\Carbon::parse($log->created_at)->format('H:i:s') }}</td>
+                                    <td class='py-3 px-6 border-b'>{{ \Carbon\Carbon::parse($log->created_at)->setTimezone('Asia/Jakarta')->format('d/m/Y') }}</td>
+                                    <td class='py-3 px-6 border-b'>{{ \Carbon\Carbon::parse($log->created_at)->setTimezone('Asia/Jakarta')->format('H:i:s') }}</td>
                                     <td class='py-3 px-6 border-b'>{{ $log->actor_name ?? 'System' }}</td>
                                     <td class='py-3 px-6 border-b'>{{ $log->action }}</td>
                                     <td class='py-3 px-6 border-b'>{{ \Illuminate\Support\Str::limit($log->description, 60) }}</td>

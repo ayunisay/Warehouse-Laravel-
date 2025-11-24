@@ -86,10 +86,11 @@
                                         @if($laporans->status == 'Pending')
                                             <a href="{{ route('editLaporan', ['id'=>$laporans->id]) }}" class="text-blue-500 hover:underline mr-3">Edit</a>
                                         @endif
+                                        |
                                         <form action="{{ route('hapusLaporan', ['id'=>$laporans->id]) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus laporan ini?')">
                                         @csrf
                                         @method('DELETE')
-                                            <button type="submit" class="text-red-500 hover:underline bg-none border-none cursor-pointer">Hapus</button>
+                                            <button type="submit" class="text-red-500 hover:underline ml-3">Hapus</button>
                                         </form>
                                     </td>
                                 </tr>

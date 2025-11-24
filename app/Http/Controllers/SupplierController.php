@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Supplier;
+use App\Models\Stok;
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SupplierController extends Controller
 {
@@ -20,10 +23,19 @@ class SupplierController extends Controller
             'alamat_supplier' => 'required|string|max:255',
         ]);
 
-        Supplier::create([
+        $supplier = Supplier::create([
             'nama_supplier' => $request->nama_supplier,
             'kontak_supplier' => $request->kontak_supplier,
             'alamat_supplier' => $request->alamat_supplier,
+        ]);
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'actor_name' => Auth::user()->name ?? null,
+            'action' => 'Create Supplier',
+            'model_type' => Supplier::class,
+            'model_id' => $supplier->id,
+            'description' => "Tambah supplier: {$request->nama_supplier}",
         ]);
 
         return redirect()->route('kelolaSupplier')->with('success', 'Supplier berhasil ditambahkan!');
@@ -59,11 +71,38 @@ class SupplierController extends Controller
             'alamat_supplier' => $request->alamat_supplier,
         ]);
 
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'actor_name' => Auth::user()->name ?? null,
+            'action' => 'Edit Supplier',
+            'model_type' => Supplier::class,
+            'model_id' => $supplier->id,
+            'description' => "Edit supplier: {$request->nama_supplier}",
+        ]);
+
         return redirect()->route('kelolaSupplier')->with('success', 'Supplier berhasil diupdate!');
     }
 
     public function hapusSupplier($id){
-        Supplier::find($id)->delete();
+        // Prevent deleting a supplier if there are stok records linked to it
+        $hasStok = Stok::where('supplier_id', $id)->exists();
+        if ($hasStok) {
+            return redirect()->route('kelolaSupplier')->with('error', 'Supplier tidak dapat dihapus karena masih ada stok terkait.');
+        }
+
+        $supplier = Supplier::find($id);
+        $supplierName = $supplier->nama_supplier;
+        $supplier->delete();
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'actor_name' => Auth::user()->name ?? null,
+            'action' => 'Delete Supplier',
+            'model_type' => Supplier::class,
+            'model_id' => $id,
+            'description' => "Hapus supplier: {$supplierName}",
+        ]);
+
         return redirect()->route('kelolaSupplier')->with('success','Supplier berhasil dihapus');
     }
 }

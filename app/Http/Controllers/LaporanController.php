@@ -92,17 +92,26 @@ class LaporanController extends Controller
             'tanggal' => $request->tanggal,
         ]);
 
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'actor_name' => Auth::user()->name ?? null,
+            'action' => 'Edit Laporan Kerusakan',
+            'model_type' => LaporanKerusakan::class,
+            'model_id' => $laporan->id,
+            'description' => "Edit laporan: {$request->nama_barang} - qty {$request->jumlah}",
+        ]);
+
         return redirect()->route('laporanKerusakan')->with('success', 'Laporan kerusakan berhasil diubah!');
     }
 
     public function hapusLaporan($id)
     {
-        $lap = LaporanKerusakan::find($id);
-        if ($lap) {
+        $laporan = LaporanKerusakan::find($id);
+        if ($laporan) {
             // restore stock
-            $stok = Stok::find($lap->barang_id);
+            $stok = Stok::find($laporan->barang_id);
             if ($stok) {
-                $stok->increment('jumlah', $lap->jumlah);
+                $stok->increment('jumlah', $laporan->jumlah);
             }
 
             ActivityLog::create([
@@ -110,11 +119,11 @@ class LaporanController extends Controller
                 'actor_name' => Auth::user()->name ?? null,
                 'action' => 'Delete Laporan Kerusakan',
                 'model_type' => LaporanKerusakan::class,
-                'model_id' => $lap->id,
-                'description' => "Hapus laporan: {$stok->nama_barang} - qty {$lap->jumlah}",
+                'model_id' => $laporan->id,
+                'description' => "Hapus laporan: {$stok->nama_barang} - qty {$laporan->jumlah}",
             ]);
 
-            $lap->delete();
+            $laporan->delete();
         }
 
         return redirect()->route('laporanKerusakan')->with('success', 'Laporan kerusakan berhasil dihapus!');
@@ -140,6 +149,16 @@ class LaporanController extends Controller
         }
 
         $laporan->update(['status' => 'Approved']);
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'actor_name' => Auth::user()->name ?? null,
+            'action' => 'Approve Laporan Kerusakan',
+            'model_type' => LaporanKerusakan::class,
+            'model_id' => $laporan->id,
+            'description' => "Approve laporan kerusakan: {$laporan->stok->nama_barang} - qty {$laporan->jumlah}",
+        ]);
+
         return redirect()->back()->with('success', 'Laporan kerusakan berhasil disetujui!');
     }
 
@@ -152,12 +171,37 @@ class LaporanController extends Controller
         }
 
         $laporan->update(['status' => 'Rejected']);
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'actor_name' => Auth::user()->name ?? null,
+            'action' => 'Reject Laporan Kerusakan',
+            'model_type' => LaporanKerusakan::class,
+            'model_id' => $laporan->id,
+            'description' => "Reject laporan kerusakan: {$laporan->stok->nama_barang} - qty {$laporan->jumlah}",
+        ]);
+
         return redirect()->back()->with('success', 'Laporan kerusakan berhasil ditolak!');
     }
 
     public function hapusLaporanAdmin($id)
     {
-        LaporanKerusakan::destroy($id);
+        $laporan = LaporanKerusakan::find($id);
+        if ($laporan) {
+            $namaBarang = $laporan->stok->nama_barang ?? 'Unknown';
+            $jumlah = $laporan->jumlah;
+            LaporanKerusakan::destroy($id);
+
+            ActivityLog::create([
+                'user_id' => Auth::id(),
+                'actor_name' => Auth::user()->name ?? null,
+                'action' => 'Delete Laporan Kerusakan',
+                'model_type' => LaporanKerusakan::class,
+                'model_id' => $id,
+                'description' => "Hapus laporan kerusakan: {$namaBarang} - qty {$jumlah}",
+            ]);
+        }
+
         return redirect()->back()->with('success', 'Laporan kerusakan berhasil dihapus!');
     }
 }

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
+use App\Models\Stok;
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KategoriController extends Controller
 {
@@ -18,8 +21,17 @@ class KategoriController extends Controller
                 'nama_kategori' => 'required|string|max:255',
             ]);
 
-            Kategori::create([
+            $kategori = Kategori::create([
                 'nama_kategori' => $request->nama_kategori,
+            ]);
+
+            ActivityLog::create([
+                'user_id' => Auth::id(),
+                'actor_name' => Auth::user()->name ?? null,
+                'action' => 'Create Kategori',
+                'model_type' => Kategori::class,
+                'model_id' => $kategori->id,
+                'description' => "Tambah kategori: {$request->nama_kategori}",
             ]);
 
             return redirect()->route('tambahKategori')->with('success', 'Kategori berhasil ditambahkan!');
@@ -43,7 +55,24 @@ class KategoriController extends Controller
         //}
 
     public function hapusKategori($id){
-        Kategori::find($id)->delete();
+        // Prevent deleting a category if there are stok records linked to it
+        $hasStok = Stok::where('kategori_id', $id)->exists();
+        if ($hasStok) {
+            return redirect()->route('tambahKategori')->with('error', 'Kategori tidak dapat dihapus karena masih ada stok terkait.');
+        }
+
+        $kategori = Kategori::find($id);
+        if ($kategori) {
+            ActivityLog::create([
+                'user_id' => Auth::id(),
+                'actor_name' => Auth::user()->name ?? null,
+                'action' => 'Delete Kategori',
+                'model_type' => Kategori::class,
+                'model_id' => $kategori->id,
+                'description' => "Hapus kategori: {$kategori->nama_kategori}",
+            ]);
+            $kategori->delete();
+        }
         return redirect()->route('tambahKategori')->with('success','Kategori berhasil dihapus');
     }
 }

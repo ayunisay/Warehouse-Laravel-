@@ -1,6 +1,6 @@
 @include('admin.admin-layout.header')
 
-<div class="container mx-auto mt-8">
+<div class="container mx-auto mt-8 flex-grow">
         <div class="bg-white shadow-md rounded-lg p-6 mt-8">
             <h1 class="text-2xl font-bold text-gray-700 mb-4">Tambah Kategori</h1>
             <form action="{{ route('tambahKategoriSubmit') }}" method="POST">
@@ -45,6 +45,6 @@
                 </tbody>
             </table>
         </div>
-    </div>
+</div>
 
 @include('admin.admin-layout.footer')

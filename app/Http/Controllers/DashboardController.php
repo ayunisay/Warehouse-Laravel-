@@ -57,7 +57,7 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
 
-        // Admin activity logs
+        // Show all activity logs to admin (admin + user actions)
         $auditLogs = ActivityLog::orderBy('created_at', 'desc')->limit(10)->get();
 
         return view('admin-dashboard', compact(

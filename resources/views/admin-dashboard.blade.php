@@ -153,10 +153,11 @@
                 <table class="min-w-full bg-white border border-gray-300 rounded-lg">
                     <thead class="bg-gray-100">
                         <tr>
-                            <th class="py-3 px-4 border-b text-left text-gray-600 font-medium">Waktu</th>
-                            <th class="py-3 px-4 border-b text-left text-gray-600 font-medium">Pengguna</th>
-                            <th class="py-3 px-4 border-b text-left text-gray-600 font-medium">Aksi</th>
-                            <th class="py-3 px-4 border-b text-left text-gray-600 font-medium">Detail</th>
+                            <th class="py-3 px-6 border-b text-left text-gray-600 font-medium">Tanggal</th>
+                            <th class="py-3 px-6 border-b text-left text-gray-600 font-medium">Waktu</th>
+                            <th class="py-3 px-6 border-b text-left text-gray-600 font-medium">Pengguna</th>
+                            <th class="py-3 px-6 border-b text-left text-gray-600 font-medium">Aksi</th>
+                            <th class="py-3 px-6 border-b text-left text-gray-600 font-medium">Detail</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
@@ -167,10 +168,11 @@
                         @else
                             @foreach($auditLogs as $log)
                                 <tr class='hover:bg-gray-50'>
-                                    <td class='py-3 px-4'>{{ \Carbon\Carbon::parse($log->created_at)->format('d/m/Y H:i') }}</td>
-                                    <td class='py-3 px-4'>{{ $log->actor_name ?? 'System' }}</td>
-                                    <td class='py-3 px-4'>{{ $log->action }}</td>
-                                    <td class='py-3 px-4'>{{ \Illuminate\Support\Str::limit($log->description, 80) }}</td>
+                                    <td class='py-3 px-6 border-b'>{{ \Carbon\Carbon::parse($log->created_at)->setTimezone('Asia/Jakarta')->format('d/m/Y') }}</td>
+                                    <td class='py-3 px-6 border-b'>{{ \Carbon\Carbon::parse($log->created_at)->setTimezone('Asia/Jakarta')->format('H:i:s') }}</td>
+                                    <td class='py-3 px-6'>{{ $log->actor_name ?? 'System' }}</td>
+                                    <td class='py-3 px-6'>{{ $log->action }}</td>
+                                    <td class='py-3 px-6'>{{ \Illuminate\Support\Str::limit($log->description, 80) }}</td>
                                 </tr>
                             @endforeach
                         @endif

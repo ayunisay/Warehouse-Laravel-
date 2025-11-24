@@ -41,8 +41,8 @@ class AuditController extends Controller
             ->limit(5)
             ->get();
 
-        // Admin activity logs
-        $auditLogs = ActivityLog::orderBy('created_at', 'desc')->limit(10)->get();
+        // Show all activity logs to admin (admin + user actions)
+        $auditLogs = ActivityLog::orderBy('created_at', 'desc')->get();
 
         return view('admin.audit-trail', compact(
             'totalItems',

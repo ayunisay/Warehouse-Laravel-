@@ -54,7 +54,7 @@
     <?php endif; ?>
 
     <div class="flex items-center justify-center min-h-screen">
-        <div class="w-full max-w-md bg-white shadow-md rounded-2xl p-6 shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
+        <div class="w-full max-w-md bg-white shadow-2xl rounded-2xl p-6 shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
             <h1 class="text-2xl font-bold text-gray-700 mb-4 text-center">Login</h1>
             <form action="{{ route('login.submit') }}" method="POST">
                 @csrf

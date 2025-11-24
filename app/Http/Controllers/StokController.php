@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Stok;
 
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use App\Models\Kategori; 
 use App\Models\Rak;
 use App\Models\Supplier;
+use Illuminate\Support\Facades\Auth;
 class StokController extends Controller
 {
     /**
@@ -43,12 +45,21 @@ class StokController extends Controller
                 'supplier_id' => 'nullable|integer|exists:supplier,id',
             ]);
 
-            Stok::create([
+            $stok = Stok::create([
                 'nama_barang' => $request->nama_barang,
                 'kategori_id' => $request->kategori_id,
                 'jumlah' => $request->jumlah,
                 'rak_id' => $request->rak_id,
                 'supplier_id' => $request->supplier_id,
+            ]);
+
+            ActivityLog::create([
+                'user_id' => Auth::id(),
+                'actor_name' => Auth::user()->name ?? null,
+                'action' => 'Create Stok',
+                'model_type' => Stok::class,
+                'model_id' => $stok->id,
+                'description' => "Tambah stok: {$request->nama_barang} - qty {$request->jumlah}",
             ]);
 
             return redirect()->route('kelolaStok')->with('success', 'Stok berhasil ditambahkan!');
@@ -91,11 +102,31 @@ class StokController extends Controller
             'supplier_id' => $request->supplier_id,
         ]);
 
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'actor_name' => Auth::user()->name ?? null,
+            'action' => 'Edit Stok',
+            'model_type' => Stok::class,
+            'model_id' => $stoks->id,
+            'description' => "Edit stok: {$request->nama_barang} - qty {$request->jumlah}",
+        ]);
+
         return redirect()->route('kelolaStok')->with('success', 'Stok berhasil diubah!');
     }
 
     public function hapusStok($id){
-        Stok::find($id)->delete();
+        $stok = Stok::find($id);
+        if ($stok) {
+            ActivityLog::create([
+                'user_id' => Auth::id(),
+                'actor_name' => Auth::user()->name ?? null,
+                'action' => 'Delete Stok',
+                'model_type' => Stok::class,
+                'model_id' => $stok->id,
+                'description' => "Hapus stok: {$stok->nama_barang}",
+            ]);
+            $stok->delete();
+        }
         return redirect()->route('kelolaStok')->with('success','Stok berhasil dihapus');
     }
 }

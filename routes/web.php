@@ -71,8 +71,8 @@ Route::middleware(['auth'])->group(function() {
 
         //permintaan routes
         Route::get('/kelola-permintaan', [PermintaanController::class, 'index2'])->name('kelolaPermintaan');
-        //hapus permintaan
-        Route::delete('/hapus-permintaan/{id}', [PermintaanController::class, 'hapusPermintaan2'])->name('hapusPermintaan');
+        //hapus permintaan (admin)
+        Route::delete('/admin/hapus-permintaan/{id}', [PermintaanController::class, 'hapusPermintaan2'])->name('hapusPermintaanAdmin');
         //status permintaan
         Route::post('/approve-permintaan/{id}', [PermintaanController::class, 'approvePermintaan'])->name('approvePermintaan');
         Route::post('/reject-permintaan/{id}', [PermintaanController::class, 'rejectPermintaan'])->name('rejectPermintaan');
@@ -107,6 +107,7 @@ Route::middleware(['auth'])->group(function() {
 
         //riwayat barang keluar routes
         Route::get('/riwayat', [BarangkeluarController::class, 'index2'])->name('riwayat');
+        Route::delete('/riwayat/hapus/{id}', [BarangkeluarController::class, 'hapusBarangKeluar2'])->name('hapusBarangKeluar2');
 
         //stok routes
         Route::get('/kelola-stok', [StokController::class, 'index2'])->name('kelolaStok');

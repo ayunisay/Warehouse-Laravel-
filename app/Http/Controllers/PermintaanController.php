@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Permintaan;
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PermintaanController extends Controller
 {
@@ -37,47 +39,92 @@ class PermintaanController extends Controller
             'alasan' => $request->alasan,
         ]);
 
+        ActivityLog::create([
+                'user_id' => Auth::id(),
+                'actor_name' => Auth::user()->name ?? null,
+                'action' => 'Create Permintaan',
+                'model_type' => Permintaan::class,
+                'model_id' => $request->id,
+                'description' => "Tambah permintaan: {$request->nama_barang} - qty {$request->jumlah}",
+        ]);
         return redirect()->route('permintaanBarang')->with('success', 'Permintaan berhasil ditambahkan!');
     }
 
-    // public function editKategori(Kategori $kategori, $id)
-    // {
-    //     $kategoris = Kategori::find($id);
-    //     return view('edit-kategori', ['kategori' => $kategoris]);
-    // }
-
-    // public function editKategoriSimpan(Request $request, $id){
-    //     $request->validate([
-    //         'nama_kategori' => 'required|string|sometimes|max:255',
-    //     ]);
-
-    //     Kategori::where('id', $id)->update([
-    //         'nama_kategori' => $request->nama_kategori,
-    //     ]);
-    //     return redirect()->route('kategori')->with('success','Kategori berhasil diedit');
-    //}
-
     public function hapusPermintaan($id){
-        Permintaan::find($id)->delete();
+        $permintaan = Permintaan::find($id);
+        $namaBarang = $permintaan->nama_barang;
+        $jumlah = $permintaan->jumlah;
+        $permintaan->delete();
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'actor_name' => Auth::user()->name ?? null,
+            'action' => 'Delete Permintaan',
+            'model_type' => Permintaan::class,
+            'model_id' => $id,
+            'description' => "Hapus permintaan: {$namaBarang} - qty {$jumlah}",
+        ]);
+
         return redirect()->route('permintaanBarang')->with('success','Permintaan berhasil dihapus');
     }
 
     public function hapusPermintaan2($id){
-        Permintaan::find($id)->delete();
+        $permintaan = Permintaan::find($id);
+        $namaBarang = $permintaan->nama_barang;
+        $jumlah = $permintaan->jumlah;
+        $permintaan->delete();
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'actor_name' => Auth::user()->name ?? null,
+            'action' => 'Delete Permintaan',
+            'model_type' => Permintaan::class,
+            'model_id' => $id,
+            'description' => "Hapus permintaan: {$namaBarang} - qty {$jumlah}",
+        ]);
+
         return redirect()->route('kelolaPermintaan')->with('success','Permintaan berhasil dihapus');
     }
 
     public function approvePermintaan($id)
     {
         $permintaan = Permintaan::find($id);
+        if (!$permintaan) {
+            return redirect()->route('kelolaPermintaan')->with('error', 'Permintaan tidak ditemukan');
+        }
+
         $permintaan->update(['status' => 'Approved']);
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'actor_name' => Auth::user()->name ?? null,
+            'action' => 'Approve Permintaan',
+            'model_type' => Permintaan::class,
+            'model_id' => $permintaan->id,
+            'description' => "Approve permintaan: {$permintaan->nama_barang} - qty {$permintaan->jumlah} (dari {$permintaan->nama_pengaju})",
+        ]);
+
         return redirect()->route('kelolaPermintaan')->with('success', 'Permintaan disetujui!');
     }
 
     public function rejectPermintaan($id)
     {
         $permintaan = Permintaan::find($id);
+        if (!$permintaan) {
+            return redirect()->route('kelolaPermintaan')->with('error', 'Permintaan tidak ditemukan');
+        }
+
         $permintaan->update(['status' => 'Rejected']);
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'actor_name' => Auth::user()->name ?? null,
+            'action' => 'Reject Permintaan',
+            'model_type' => Permintaan::class,
+            'model_id' => $permintaan->id,
+            'description' => "Reject permintaan: {$permintaan->nama_barang} - qty {$permintaan->jumlah} (dari {$permintaan->nama_pengaju})",
+        ]);
+
         return redirect()->route('kelolaPermintaan')->with('success', 'Permintaan ditolak!');
     }
 }

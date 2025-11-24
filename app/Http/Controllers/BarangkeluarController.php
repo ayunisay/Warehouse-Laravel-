@@ -191,4 +191,28 @@ class BarangkeluarController extends Controller
         }
         return redirect()->route('barangKeluar')->with('success', 'Data Barang Keluar berhasil dihapus!');
     }
+
+    public function hapusBarangKeluar2(string $id)
+    {
+        $bk = BarangKeluar::find($id);
+        if ($bk) {
+            // restore stock
+            $stok = Stok::find($bk->barang_id);
+            if ($stok) {
+                $stok->increment('jumlah', $bk->jumlah);
+            }
+
+            ActivityLog::create([
+                'user_id' => Auth::id(),
+                'actor_name' => Auth::user()->name ?? null,
+                'action' => 'Delete Barang Keluar',
+                'model_type' => BarangKeluar::class,
+                'model_id' => $bk->id,
+                'description' => "Hapus keluar: {$stok->nama_barang} - qty {$bk->jumlah}",
+            ]);
+
+            $bk->delete();
+        }
+        return redirect()->route('riwayat')->with('success', 'Data Barang Keluar berhasil dihapus!');
+    }
 }

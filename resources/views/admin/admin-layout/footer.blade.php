@@ -1,4 +1,3 @@
-
     <!-- Footer -->
     <footer class="bg-gray-900 text-white w-full pb-5 mt-8">
         <div class="mt-5 text-center">
