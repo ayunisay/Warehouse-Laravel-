@@ -64,7 +64,7 @@
                 <!-- Buttons -->
                 <div class="mt-6 flex gap-4">
                     <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition duration-300">
-                        Update Perubahan
+                        Update Barang Keluar
                     </button>
                     <a href="{{ route('barangKeluar') }}" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition duration-300">
                         Batal

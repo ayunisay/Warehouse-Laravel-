@@ -34,7 +34,7 @@
                     <textarea id="keterangan" name="keterangan" rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Jelaskan kerusakan atau kehilangan barang" required>{{ $laporan->keterangan }}</textarea>
                 </div>
                 <div class="mt-6 flex gap-4">
-                    <button type="submit" class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition duration-300">Simpan Perubahan</button>
+                    <button type="submit" class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition duration-300">Update Laporan Kerusakan</button>
                     <a href="{{ route('laporanKerusakan') }}" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition duration-300">Batal</a>
                 </div>
             </form>
