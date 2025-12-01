@@ -1,61 +1,161 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Warehouse Management System (WMS)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistem Manajemen Gudang berbasis web yang dikembangkan menggunakan Framework Laravel untuk mengelola inventaris secara digital dan real-time.
 
-## About Laravel
+## 📋 Deskripsi
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Warehouse Management System adalah aplikasi web yang dirancang untuk mengoptimalkan pengelolaan gudang melalui sistem inventaris digital, pelacakan barang keluar-masuk, sistem approval permintaan barang, dan audit trail yang komprehensif. Sistem ini menggunakan Role-Based Access Control (RBAC) untuk memisahkan hak akses antara Admin dan User.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✨ Fitur Utama
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Admin
+- **Dashboard Analytics** - Monitoring statistik total stok, transaksi, dan tren permintaan
+- **Manajemen Stok** - CRUD stok barang dengan pengurangan otomatis
+- **Kelola Kategori** - Manajemen kategori barang
+- **Kelola Rak** - Pengaturan lokasi penyimpanan barang
+- **Kelola Supplier** - Manajemen data supplier
+- **Approval Permintaan** - Menyetujui/menolak permintaan barang dari user
+- **Approval Laporan Kerusakan** - Mengelola laporan kerusakan barang
+- **Riwayat Barang Keluar** - Monitoring semua transaksi barang keluar
+- **Manajemen User** - CRUD data pengguna dan role
+- **Audit Trail Lengkap** - Tracking semua aktivitas sistem
+- **Generate Laporan** - Export laporan ke format CSV
 
-## Learning Laravel
+### User
+- **Dashboard** - Statistik stok dan aktivitas terbaru
+- **Lihat Stok** - View daftar stok tersedia (read-only)
+- **Barang Keluar** - Input transaksi pengeluaran barang
+- **Permintaan Barang** - Mengajukan request barang ke admin
+- **Laporan Kerusakan** - Melaporkan barang rusak
+- **Audit Trail Personal** - Melihat log aktivitas sendiri
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🛠️ Tech Stack
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Framework:** Laravel 12
+- **Database:** MySQL 8.0
+- **Frontend:** Blade Template Engine, Tailwind CSS
+- **Backend:** PHP 8.3
+- **Web Server:** Laragon
+- **Version Control:** Git & GitHub
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 📦 Instalasi
 
-## Laravel Sponsors
+### Prerequisites
+- PHP >= 8.3
+- Composer
+- MySQL 8.0
+- Node.js & NPM (untuk Tailwind CSS)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Langkah Instalasi
 
-### Premium Partners
+1. **Clone Repository**
+```bash
+git clone https://github.com/ayunisay/Warehouse-Laravel.git
+cd Warehouse-Laravel
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+2. **Install Dependencies**
+```bash
+composer install
+npm install
+```
 
-## Contributing
+3. **Setup Environment**
+```bash
+cp .env.example .env
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. **Generate Application Key**
+```bash
+php artisan key:generate
+```
 
-## Code of Conduct
+5. **Konfigurasi Database**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Edit file `.env` dan sesuaikan dengan konfigurasi database Anda:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=warehouse2
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Security Vulnerabilities
+6. **Jalankan Migration & Seeder**
+```bash
+php artisan migrate --seed
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+7. **Compile Assets**
+```bash
+npm run dev
+```
 
-## License
+8. **Jalankan Server**
+```bash
+php artisan serve
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Aplikasi dapat diakses di `http://localhost:8000`
+
+## 👥 Default Credentials
+
+### Admin
+```
+Email: admin@gmail.com
+Password: admin123
+```
+
+### User
+```
+Email: user@gmail.com
+Password: user123
+```
+
+## 📂 Struktur Database
+
+Sistem menggunakan database relasional dengan tabel utama:
+- `users` - Data pengguna dan role
+- `stocks` - Inventaris barang
+- `categories` - Kategori barang
+- `racks` - Lokasi penyimpanan
+- `suppliers` - Data supplier
+- `outbound_transactions` - Transaksi barang keluar
+- `stock_requests` - Permintaan barang
+- `damage_reports` - Laporan kerusakan
+- `audit_logs` - Catatan aktivitas sistem
+
+## 📈 Export Laporan
+
+Sistem mendukung export laporan ke format **CSV** untuk:
+- Laporan Stok Barang
+- Riwayat Barang Keluar
+- Permintaan Barang
+- Laporan Kerusakan
+
+## 📝 License
+
+Project ini dibuat untuk keperluan tugas akademik di Universitas Singaperbangsa Karawang.
+
+## 👨‍💻 Authors
+
+- **Ayunisa Yasmin** - *Developer* - [ayunisay](https://github.com/ayunisay)
+**Informatika, Fakultas Ilmu Komputer**  
+**Universitas Singaperbangsa Karawang**
+
+## 📧 Contact
+
+Untuk pertanyaan atau saran, silakan hubungi:
+- Email: 2310631170008@student.unsika.ac.id
+
+## 🙏 Acknowledgments
+
+- Framework Laravel Documentation
+- Tailwind CSS Documentation
+- MySQL Documentation
+- Dosen Pembimbing & Universitas Singaperbangsa Karawang
+
+---
+
+⭐ Jangan lupa berikan star jika project ini bermanfaat!
