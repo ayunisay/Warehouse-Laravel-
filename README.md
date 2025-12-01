@@ -9,7 +9,7 @@ Warehouse Management System adalah aplikasi web yang dirancang untuk mengoptimal
 ## ✨ Fitur Utama
 
 ### Admin
-- **Dashboard Analytics** - Monitoring statistik total stok, transaksi, dan tren permintaan
+- **Dashboard** - Monitoring total stok, transaksi, dan tren permintaan
 - **Manajemen Stok** - CRUD stok barang dengan pengurangan otomatis
 - **Kelola Kategori** - Manajemen kategori barang
 - **Kelola Rak** - Pengaturan lokasi penyimpanan barang
@@ -22,7 +22,7 @@ Warehouse Management System adalah aplikasi web yang dirancang untuk mengoptimal
 - **Generate Laporan** - Export laporan ke format CSV
 
 ### User
-- **Dashboard** - Statistik stok dan aktivitas terbaru
+- **Dashboard** - Total stok, low stok, dan aktivitas terbaru
 - **Lihat Stok** - View daftar stok tersedia (read-only)
 - **Barang Keluar** - Input transaksi pengeluaran barang
 - **Permintaan Barang** - Mengajukan request barang ke admin
