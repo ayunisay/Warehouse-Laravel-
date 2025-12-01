@@ -117,14 +117,14 @@ Password: user123
 
 Sistem menggunakan database relasional dengan tabel utama:
 - `users` - Data pengguna dan role
-- `stocks` - Inventaris barang
-- `categories` - Kategori barang
-- `racks` - Lokasi penyimpanan
-- `suppliers` - Data supplier
-- `outbound_transactions` - Transaksi barang keluar
-- `stock_requests` - Permintaan barang
-- `damage_reports` - Laporan kerusakan
-- `audit_logs` - Catatan aktivitas sistem
+- `stoks` - Data barang
+- `kategori` - Kategori barang
+- `rak` - Lokasi penyimpanan
+- `supplier` - Data supplier
+- `barang_keluar` - Transaksi barang keluar
+- `permintaan` - Permintaan barang
+- `laporan_kerusakan` - Laporan kerusakan
+- `activity_logs` - Catatan aktivitas sistem
 
 ## 📈 Export Laporan
 
@@ -141,6 +141,7 @@ Project ini dibuat untuk keperluan tugas akademik di Universitas Singaperbangsa 
 ## 👨‍💻 Authors
 
 - **Ayunisa Yasmin** - *Developer* - [ayunisay](https://github.com/ayunisay)
+  
 **Informatika, Fakultas Ilmu Komputer**  
 **Universitas Singaperbangsa Karawang**
 
