@@ -138,17 +138,12 @@ Sistem mendukung export laporan ke format **CSV** untuk:
 
 Project ini dibuat untuk keperluan tugas akademik di Universitas Singaperbangsa Karawang.
 
-## 👨‍💻 Authors
-
+## Kelompok 8
 - **Ayunisa Yasmin** - *Developer* - [ayunisay](https://github.com/ayunisay)
+- **Dhafi Rathan Rabbani**
   
 **Informatika, Fakultas Ilmu Komputer**  
 **Universitas Singaperbangsa Karawang**
-
-## 📧 Contact
-
-Untuk pertanyaan atau saran, silakan hubungi:
-- Email: 2310631170008@student.unsika.ac.id
 
 ## 🙏 Acknowledgments
 
