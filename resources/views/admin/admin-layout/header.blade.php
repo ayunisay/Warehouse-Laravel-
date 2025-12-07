@@ -20,7 +20,7 @@
                 <div class="flex items-center space-x-11">
                     <ul class="flex space-x-6 text-sm font-medium">
                         <li>
-                            <a href="{{ route('dashboardAdmin') }}" class="hover:text-yellow-400 transition duration-300">Dashboard</a>
+                            <a href="{{ route('dashboardAdmin') }}" class="hover:text-green-400 transition duration-300">Dashboard</a>
                         </li>
                         <li>
                             <a href="{{ route('kelolaStok') }}" class="hover:text-yellow-400 transition duration-300">Stok</a>
